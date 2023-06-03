@@ -3,15 +3,13 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <rfm69.h>
-#include <imu.h>
-#include <gps.h>
-#include <serialSim.h>
-#include <TaskScheduler.h>
+#include "rfm69.h"
+// #include <gps.h>
+#include "TaskScheduler.h"
 
-#define RFM69_INT PC6  
-#define RFM69_CS PB9  
-#define RFM69_RST PB8
-#define RFM69_IRQ 5
+#define RFM69_INT PD2  
+#define RFM69_CS PB2 
+#define RFM69_RST PB1
+#define RFM69_IRQ 0
 
 #endif
