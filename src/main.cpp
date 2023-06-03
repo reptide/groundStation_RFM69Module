@@ -33,6 +33,11 @@ void setup()
         delay(1);
     }
 
+    Serial.println("Connected");
+    if(RFM69_Adress==1)
+        Serial.print("LoRa recognized");
+    else
+        Serial.print("LoRa not recognized");
     // gps = new GPS(1000);
     transceiver = new Transceiver(RFM69_CS, RFM69_INT, GPS_DUMMY);
 
