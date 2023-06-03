@@ -1,10 +1,8 @@
 #include "config.h"
 #include "util.h"
 
-IMU *imu;
-GPS *gps;
-SerialSim *serialsim;
 Transceiver *transceiver;
+int GPS_DUMMY = 0;
 
 // SERVO USES STM32F4 TIMER 1 THAT OPERATES AT TWICE THE EXPECTED FREQUENCY
 // HENCE WRITE ALL MICROSECONDS IN DOUBLE
@@ -35,18 +33,15 @@ void setup()
         delay(1);
     }
 
-    imu = new IMU(1000);
-    gps = new GPS(1000);
-    serialsim = new SerialSim(gps, imu, 1000);
-    transceiver = new Transceiver(RFM69_CS, RFM69_INT,gps);
+    // gps = new GPS(1000);
+    transceiver = new Transceiver(RFM69_CS, RFM69_INT, GPS_DUMMY);
 
-    check_sensors(imu, gps, transceiver)
-        ? Serial.println("sensors success")
-        : Serial.println("sensors failed");
+    // check_sensors(gps, transceiver)
+        // ? Serial.println("sensors success")
+        // : Serial.println("sensors failed");
+
+    // gps->enable();
     transceiver->enable();
-
-    gps->enable();
-    imu->enable();
 }
 
 void loop()

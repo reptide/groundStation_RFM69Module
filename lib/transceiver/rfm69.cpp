@@ -1,9 +1,9 @@
 #include "rfm69.h"
 
-Transceiver::Transceiver(int RFM69_CS, int RFM69_INT, GPS *gps) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
+Transceiver::Transceiver(int RFM69_CS, int RFM69_INT, int GPS_DUMMY) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
 {
     this->driver = new RH_RF69(RFM69_CS, RFM69_INT);
-    this->gps = gps;
+    // this->gps = gps;
 }
 
 Transceiver::~Transceiver() {}
@@ -30,9 +30,11 @@ bool Transceiver::Callback()
             buf[len] = 0;
         }
         Serial.print(":3\n");
-        Serial.print(this->gps->getLatitude());
+        // Serial.print(this->gps->getLatitude());
+        Serial.print("Dummy Latitude");
         Serial.print(",");
-        Serial.println(this->gps->getLongitude());
+        // Serial.println(this->gps->getLongitude());
+        Serial.print("Dummy Longitude");
 
         // return true;
     }
