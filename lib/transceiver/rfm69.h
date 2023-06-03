@@ -18,7 +18,7 @@ private:
     uint8_t *buffer;
 
 public:
-    Transceiver(int RFM69_CS, int RFM69_INT, int GPS_DUMMY);
+    Transceiver(int RFM69_CS, int RFM69_INT);
     ~Transceiver();
 
     // Task virtual methods

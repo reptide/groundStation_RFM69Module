@@ -2,12 +2,6 @@
 #include "util.h"
 
 Transceiver *transceiver;
-int GPS_DUMMY = 0;
-
-// SERVO USES STM32F4 TIMER 1 THAT OPERATES AT TWICE THE EXPECTED FREQUENCY
-// HENCE WRITE ALL MICROSECONDS IN DOUBLE
-// 2000 MICROSECONDS --> 1 MILLISECOND
-// 4000 MICROSECONDS --> 2 MILLISECOND
 
 enum state
 {
@@ -33,13 +27,8 @@ void setup()
         delay(1);
     }
 
-    Serial.println("Connected");
-    if(RFM69_Adress==1)
-        Serial.print("LoRa recognized");
-    else
-        Serial.print("LoRa not recognized");
     // gps = new GPS(1000);
-    transceiver = new Transceiver(RFM69_CS, RFM69_INT, GPS_DUMMY);
+    transceiver = new Transceiver(RFM69_CS, RFM69_INT);
 
     // check_sensors(gps, transceiver)
         // ? Serial.println("sensors success")

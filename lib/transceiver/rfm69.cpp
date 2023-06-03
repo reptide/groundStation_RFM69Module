@@ -1,9 +1,8 @@
 #include "rfm69.h"
 
-Transceiver::Transceiver(int RFM69_CS, int RFM69_INT, int GPS_DUMMY) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
+Transceiver::Transceiver(int RFM69_CS, int RFM69_INT) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
 {
     this->driver = new RH_RF69(RFM69_CS, RFM69_INT);
-    // this->gps = gps;
 }
 
 Transceiver::~Transceiver() {}
@@ -29,12 +28,6 @@ bool Transceiver::Callback()
             Serial.println((char *)this->buffer);
             buf[len] = 0;
         }
-        Serial.print(":3\n");
-        // Serial.print(this->gps->getLatitude());
-        Serial.print("Dummy Latitude");
-        Serial.print(",");
-        // Serial.println(this->gps->getLongitude());
-        Serial.print("Dummy Longitude");
 
         // return true;
     }
@@ -70,24 +63,10 @@ bool Transceiver::Callback()
 
     if (dataReceived)
     {
-        // char radiopacket[RH_RF69_MAX_MESSAGE_LEN];
-        // snprintf(radiopacket, RH_RF69_MAX_MESSAGE_LEN, "%d\n\n ", 1);
-        // Send a message!
+
         this->driver->send((uint8_t *)data, sizeof(data));
         this->driver->waitPacketSent();
-        // Serial.println("sending to flight computer");
-        // Serial.println(data);
-        // Serial.println(radiopacket);
-        // char radiopacket[RH_RF69_MAX_MESSAGE_LEN];
-        // snprintf(radiopacket, RH_RF69_MAX_MESSAGE_LEN, "%d\n\n ", 1);
-        // // Send a message!
-        // this->driver->send((uint8_t *)radiopacket, sizeof(radiopacket));
-        // this->driver->waitPacketSent();
-        // Serial.println("sending to flight computer");
-        // Serial.println(data);
-        // Serial.println(radiopacket);
-        // this->previous_time = current_time;
-        // return true;
+
     }
 
     memset(data, 32, sizeof(data));
