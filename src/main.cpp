@@ -1,15 +1,7 @@
 #include "config.h"
 #include "util.h"
 
-#if defined(HALOSHIP_SIM)
-bool sim = true;
-#else
-bool sim = false;
-#endif
-// Instantiate objects
-// Buzzer *buzzer;
-// Blink *blinker;
-IMU *imu; // Orientation
+IMU *imu;
 GPS *gps;
 SerialSim *serialsim;
 Transceiver *transceiver;
@@ -48,31 +40,13 @@ void setup()
     serialsim = new SerialSim(gps, imu, 1000);
     transceiver = new Transceiver(RFM69_CS, RFM69_INT,gps);
 
-    // // Run sensor check
     check_sensors(imu, gps, transceiver)
         ? Serial.println("sensors success")
         : Serial.println("sensors failed");
+    transceiver->enable();
 
-    // blinker = new Blink(pwm);
-
-    // Enable chips
-    if (sim)
-    {
-        check_sensors(imu, gps, serialsim)
-            ? Serial.println("sensors success")
-            : Serial.println("sensors failed");
-        serialsim->enable();
-    }
-    else
-    {
-        check_sensors(imu, gps, transceiver)
-            ? Serial.println("sensors success")
-            : Serial.println("sensors failed");
-        transceiver->enable();
-    }
     gps->enable();
     imu->enable();
-    // serialSim->enable();
 }
 
 void loop()
