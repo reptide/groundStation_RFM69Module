@@ -3,17 +3,17 @@
 
 Transceiver *transceiver;
 
-enum state
-{
-    PRELAUNCH,
-    LAUNCH_READY,
-    MOTOR_BURN,
-    BURNOUT,
-    APOGEE,
-    POST_DROGUE,
-    POST_MAIN,
-    END
-};
+// enum state
+// {
+//     PRELAUNCH,
+//     LAUNCH_READY,
+//     MOTOR_BURN,
+//     BURNOUT,
+//     APOGEE,
+//     POST_DROGUE,
+//     POST_MAIN,
+//     END
+// };
 
 void setup()
 {

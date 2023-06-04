@@ -9,9 +9,8 @@
 #include <RH_RF69.h>
 #include <SPI.h>
 #include <Arduino.h>
-#include "chip.h"
 
-class Transceiver : public Task, public Chip
+class Transceiver : public Task
 {
 private:
     RH_RF69 *driver;
@@ -25,9 +24,6 @@ public:
     bool Callback();
     bool OnEnable();
     void OnDisable();
-
-    // Chip virtual methods
-    bool checkStatus();
 };
 
 #endif
