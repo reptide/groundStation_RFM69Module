@@ -5,8 +5,8 @@
 #include "rfm69.h"
 #include "TaskScheduler.h"
 
-#define RFM69_INT PD2  
-#define RFM69_CS PB2 
-#define RFM69_RST PB1
+#define RFM69_INT 2
+#define RFM69_CS 10 
+#define RFM69_RST 9
 
 #endif

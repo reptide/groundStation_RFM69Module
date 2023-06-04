@@ -2,7 +2,18 @@
 
 Transceiver::Transceiver(int RFM69_CS, int RFM69_INT) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
 {
+    Serial.println("Transceiver Constructor Called.");
+
     this->driver = new RH_RF69(RFM69_CS, RFM69_INT);
+
+    if(driver)
+    {
+        Serial.println("Driver Created.");
+    }
+    else
+    {
+        Serial.println("Driver Not Created.");
+    }
 }
 
 Transceiver::~Transceiver() {}
@@ -102,6 +113,6 @@ void Transceiver::OnDisable()
 
 bool Transceiver::checkStatus()
 {
-
+    Serial.println("Transceiver checkStatus called.");
     return this->driver->init();
 }

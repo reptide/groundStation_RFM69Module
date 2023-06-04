@@ -14,8 +14,42 @@ void setup()
         delay(1);
     }
 
+    if(Serial)
+    {
+        Serial.println("Serial Console Open.");
+    }
+
     transceiver = new Transceiver(RFM69_CS, RFM69_INT);
+
+    if(check_sensors(transceiver))
+    {
+        Serial.println("Transceiver Connected.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Connected.");
+    }
+
+    if(transceiver)
+    {
+        Serial.println("Transceiver Created.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Created.");
+    }
+
     transceiver->enable();
+
+    if(transceiver->enable())
+    {
+        Serial.println("Transceiver Enabled.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Enabled.");
+    }
+
 }
 
 void loop()
