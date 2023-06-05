@@ -1,9 +1,7 @@
 #ifndef RFM69_H
 #define RFM69_H
 
-#define RFM69_RST PB1
 #define RFM69_FREQ 915.0
-#define RFM69_Adress 1
 
 #include <scheduler.h>
 #include <RH_RF69.h>

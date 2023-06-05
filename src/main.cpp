@@ -3,22 +3,9 @@
 
 Transceiver *transceiver;
 
-// enum state
-// {
-//     PRELAUNCH,
-//     LAUNCH_READY,
-//     MOTOR_BURN,
-//     BURNOUT,
-//     APOGEE,
-//     POST_DROGUE,
-//     POST_MAIN,
-//     END
-// };
-
 void setup()
 {
     // Initialize communication
-    Wire.begin();
     Serial.begin(115200);
 
     // Wait until serial console is open, remove if not tethered to computer
@@ -27,15 +14,42 @@ void setup()
         delay(1);
     }
 
-    // gps = new GPS(1000);
+    if(Serial)
+    {
+        Serial.println("Serial Console Open.");
+    }
+
     transceiver = new Transceiver(RFM69_CS, RFM69_INT);
 
-    // check_sensors(gps, transceiver)
-        // ? Serial.println("sensors success")
-        // : Serial.println("sensors failed");
+    if(check_sensors(transceiver))
+    {
+        Serial.println("Transceiver Connected.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Connected.");
+    }
 
-    // gps->enable();
+    if(transceiver)
+    {
+        Serial.println("Transceiver Created.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Created.");
+    }
+
     transceiver->enable();
+
+    if(transceiver->enable())
+    {
+        Serial.println("Transceiver Enabled.");
+    }
+    else
+    {
+        Serial.println("Transceiver Not Enabled.");
+    }
+
 }
 
 void loop()

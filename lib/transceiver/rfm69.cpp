@@ -2,14 +2,27 @@
 
 Transceiver::Transceiver(int RFM69_CS, int RFM69_INT) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
 {
+    Serial.println("Transceiver Constructor Called.");
+
     this->driver = new RH_RF69(RFM69_CS, RFM69_INT);
+
+    if(driver)
+    {
+        Serial.println("Driver Created.");
+    }
+    else
+    {
+        Serial.println("Driver Not Created.");
+    }
 }
 
 Transceiver::~Transceiver() {}
 
 bool Transceiver::Callback()
 {
+
     // receive message from flight computer
+    // Serial.println
     if (this->driver->available())
     {
         // Should be a message for us now
@@ -28,11 +41,6 @@ bool Transceiver::Callback()
         }
 
         // return true;
-    }
-    //Failed to detect driver
-    else
-    {
-        Serial.println("Failed to detect driver");
     }
 
     //  receive message from Dashboard
@@ -53,7 +61,7 @@ bool Transceiver::Callback()
             continue;
         } // looks like a valid message char, so append it and
         // increment our index
-        // Serial.println(receivedChar); ??????????
+        // Serial.println(receivedChar);
         data[ndx] = receivedChar;
         ndx++;
         if (ndx >= RH_RF69_MAX_MESSAGE_LEN)
@@ -86,13 +94,13 @@ bool Transceiver::OnEnable()
     }
 
     // range from 14-20 for power, 2nd arg must be true for 69HCW
-    this->driver->setTxPower(14, true);
+    this->driver->setTxPower(20, true);
 
     // The encryption key has to be the same as the one in the server
     uint8_t key[] = {0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08,
                      0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08};
 
-    this->driver->setEncryptionKey(key);
+    // this->driver->setEncryptionKey(key);
 
     return true;
 }
@@ -101,4 +109,10 @@ void Transceiver::OnDisable()
 {
     delete this->buffer;
     delete this->driver;
+}
+
+bool Transceiver::checkStatus()
+{
+    Serial.println("Transceiver checkStatus called.");
+    return this->driver->init();
 }
